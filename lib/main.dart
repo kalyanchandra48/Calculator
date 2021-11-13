@@ -17,8 +17,8 @@ class Calculator extends StatefulWidget {
 
 class _CalculatorState extends State<Calculator> {
   List<String> text = [
-    '8',
     '7',
+    '8',
     '9',
     '=',
     '4',
@@ -61,9 +61,12 @@ class _CalculatorState extends State<Calculator> {
   setResult(String operation, List<String> value) {
     switch (operation) {
       case 'add':
-        int sum = 0;
+        double sum = 0;
+	print(value);
         value.forEach((e) {
-          sum = sum + int.parse(e);
+          sum = sum + double.parse(e);
+	  print("list value");
+	  print(e);
         });
         setState(() {
           result = sum.toString();
@@ -87,7 +90,7 @@ class _CalculatorState extends State<Calculator> {
             intValues1.reduce((value, element) => value * element);
 
         setState(() {
-          result = multiplication.toString();
+         result = multiplication.toString();
         });
         //
         break;
@@ -103,7 +106,6 @@ class _CalculatorState extends State<Calculator> {
         children: [
           SizedBox(
             height: 40,
-
           ),
           Container(
             height: 200,
@@ -165,7 +167,9 @@ class _CalculatorState extends State<Calculator> {
                             i == 6 ||
                             i == 8 ||
                             i == 9 ||
+                            i == 7 ||
                             i == 10) {
+                          result = '';
                           _controller.text = _controller.text + text[i];
                         }
                         if (i == 13) {
@@ -175,37 +179,43 @@ class _CalculatorState extends State<Calculator> {
                         }
                         if (i == 14) {
                           value.add(_controller.text);
-			  setState((){
-                                  colors[i]=Colors.white;
+                          setState(() {
+                            colors[i] = Colors.white;
                           });
                           operation = 'sub';
+                          print(value);
                           _controller.clear();
                         }
                         if (i == 11) {
                           value.add(_controller.text);
-			  setState((){
-				  colors[i]=Colors.white;
-			  });
+                          setState(() {
+                            colors[i] = Colors.white;
+                          });
                           _controller.clear();
+                          print(value);
 
                           operation = 'add';
                         }
                         if (i == 15) {
                           value.add(_controller.text);
-			  setState((){
-                                  colors[i]=Colors.white;
+                          setState(() {
+                            colors[i] = Colors.white;
                           });
                           _controller.clear();
+                          print(value);
                           operation = 'mul';
                         }
+                        if (i == 7) {
+                          setState(() {
+                          //  value.add(_controller.text);
+                          });
+                        }
                         if (i == 3) {
-
-				setState((){
-				colors[11]=Color(0xffFFA008);
-				colors[15]=Color(0xffFFA008);
-				colors[14]=Color(0xffFFA008);
-				
-				});
+                          setState(() {
+                            colors[11] = Color(0xffFFA008);
+                            colors[15] = Color(0xffFFA008);
+                            colors[14] = Color(0xffFFA008);
+                          });
                           value.add(_controller.text);
                           _controller.clear();
                           setResult(operation, value);
